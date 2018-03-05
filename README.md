@@ -13,7 +13,7 @@ Requirements
    https://developers.google.com/places/web-service/get-api-key
 
 2. A custom endpoint to request autocomplete info from the 
-   [Place Autocomplet API](https://developers.google.com/places/web-service/autocomplete).
+   [Place Autocomplete API](https://developers.google.com/places/web-service/autocomplete).
    This is necessary because `amp-list` requires a CORS endpoint and therefore the Places web
    services can't be used directly because it doesn't allow your site's origin (not an expert
    in CORS but that is how I understand it). 
