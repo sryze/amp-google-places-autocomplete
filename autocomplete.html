@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html amp>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="/">
+
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+    <script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+	<script async custom-element="amp-list" src="https://cdn.ampproject.org/v0/amp-list-0.1.js"></script>
+	<script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.1.js"></script>
+	<script async custom-element="amp-selector" src="https://cdn.ampproject.org/v0/amp-selector-0.1.js"></script>
+
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <style amp-custom>
+        .hidden {
+            display: none;
+        }
+
+        body {
+            background: #e0e0e0;
+            padding: 15px;
+            margin: 0;
+        }
+
+        .form-wrapper {
+            position: relative;
+            width: calc(100%);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form .inputs {
+            position: relative;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .form .submit-button {
+            display: block;
+            color: white;
+            background: steelblue;
+            width: 100%;
+            height: 50px;
+            border: none;
+            padding: 16px 20px;
+            font-size: 16px;
+            font-weight: normal;
+            line-height: normal;
+            flex: 0 0 160px;
+            margin-top: 1em;
+            -webkit-appearance: none;
+        }
+
+        .form .submit-button.disabled {
+            cursor: not-allowed;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .form .city-input {
+            box-sizing: border-box;
+            text-align: center;
+            color: #555;
+            outline: none;
+            border: none;
+            width: 100%;
+            height: 50px;
+            vertical-align: top;
+            padding: 0.4em 10px;
+            font-size: 16px;
+        }
+
+        .form .city-input:focus {
+            outline: none;
+            border: none;
+        }
+
+        .form .city-input.has-dropdown {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .form .city-input::-webkit-input-placeholder { color: #888; }
+        .form .city-input::-moz-placeholder { color: #888; }
+        .form .city-input:-ms-input-placeholder { color: #888; }
+        .form .city-input:-moz-placeholder { color: #888; }
+
+        .form .error-container {
+            position: absolute;
+            width: 100%;
+            bottom: -28px;
+            left: 0;
+            right: 0;
+        }
+
+        .form .errors {
+            text-align: center;
+            color: #fc3c3c;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .form .autocomplete-container {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            right: 0;
+            width: 100%;
+            background: white;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            border-top: 1px solid #d0d0d0;
+        }
+
+        .form .autocomplete-box {
+            width: 100%;
+            color: #555;
+            text-align: center;
+        }
+
+        .form .select-option {
+            box-sizing: border-box;
+            height: 30px;
+            line-height: 30px;
+            padding-left: 10px;
+        }
+
+        .form .select-option:hover {
+            background: #d0d0d0;
+        }
+
+        .form .last-name input {
+            border-left: 0;
+        }
+
+        .form .select-option.empty {
+            text-align: center;
+        }
+
+        .form .google-logo {
+            background-image: url(powered_by_google_on_white.png);
+            background-position: right;
+            background-repeat: no-repeat;
+            height: 18px;
+            margin-right: 6px;
+            margin-bottom: 2px;
+        }
+
+        @media screen and (min-width: 600px) {
+            .form .inputs {
+                display: flex;
+                justify-content: center;
+                height: 50px;
+            }
+
+            .form .submit-button {
+                width: auto;
+                margin: auto;
+            }
+
+            .form .city-input {
+                width: calc(100% - 160px);
+                height: 50px;
+                padding-right: 0;
+                text-align: left;
+            }
+
+            .form .autocomplete-container {
+                width: calc(100% - 160px);
+            }
+
+            .form .autocomplete-box {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+
+<body role="button" tabindex="0" on="tap:AMP.setState({acForm: {showDropdown: false}})">
+    <!--
+        acForm.query - current query string entered in the input, default is ""
+        acForm.showDropdown - whether the autocomplete dropdown is currently visible
+        acForm.isLoading - whether the form is being submitted
+    -->
+    <amp-state id="acForm">
+        <script type="application/json">
+        {
+            "query": "",
+            "showDropdown": false,
+            "isLoading": false
+        }
+        </script>
+    </amp-state>
+
+    <!--
+        acData holds the data returned by the autocomplete API (address predictions)
+    -->
+    <amp-state id="acData"
+        src="autocomplete-api.php"
+        [src]="(acForm.query && acForm.query.length > 0)
+            ? 'autocomplete-api.php?query=' + encodeURIComponent(acForm.query)
+            : 'autocomplete-api.php'">
+    </amp-state>
+
+    <div
+        class="form-wrapper"
+        on="tap:AMP.setState({acForm: {showDropdown: false}})"
+        role="button"
+        tabindex="0"
+        aria-label="Tap to close the autocomplete box">
+        <form
+            id="form"
+            class="form"
+            action="submit.php"
+            method="GET"
+            target="_top"
+            on="
+                submit: 
+                    AMP.setState({acForm: {
+                        isLoading: true,
+                        showDropdown: false
+                    }});
+                submit-success:
+                    AMP.setState({acForm: {
+                        isLoading: false,
+                        showDropdown: false
+                    }});
+                submit-error:
+                    AMP.setState({acForm: {
+                        isLoading: false,
+                        showDropdown: false
+                    }});
+                invalid:
+                    AMP.setState({acForm: {
+                        isLoading: false
+                    }});"
+            custom-validation-reporting="show-first-on-submit">
+            <div class="inputs">
+                <input
+                    id="city"
+                    class="city-input"
+                    [class]="acForm.showDropdown ? 'city-input has-dropdown' : 'city-input'"
+                    name="city"
+                    placeholder="Enter a city and state"
+                    autocomplete="off"
+                    on="
+                        input-debounced:
+                            AMP.setState({acForm: {
+                                query: event.value,
+                                showDropdown: event.value && event.value.length > 0,
+                            }}),
+                            autocomplete-list.show;
+                        tap:
+                            AMP.setState({acForm: {
+                                query: acForm.query == null ? '' : acForm.query,
+                                showDropdown: true
+                            }}),
+                            autocomplete-list.show"
+                    value=""
+                    [value]="acForm.query || ''"
+                    required
+                    pattern="\s*[a-zA-Z, ]+\s*(,| )\s*[a-zA-Z]{2}\b.*\s*">
+                <input
+                    id="submit-button"
+                    type="submit"
+                    value="Submit"
+                    [value]="acForm.isLoading ? 'Loading...' : 'Submit'"
+                    class="submit-button"
+                    [class]="acForm.isLoading ? 'submit-button disabled' : 'submit-button'"
+                    [disabled]="acForm.isLoading">
+            </div>
+            <div class="error-container">
+                <div class="errors">
+                    <span class="error hidden" visible-when-invalid="valueMissing" validation-for="city">
+                        Please enter a city and state
+                    </span>
+                    <span class="error hidden" visible-when-invalid="patternMismatch" validation-for="city">
+                        Please enter a city and state
+                    </span>
+                </div>
+            </div>
+            <div
+                class="autocomplete-container hidden"
+                [class]="(acForm.showDropdown && acForm.query && acData.predictions.length > 0) ?
+                    'autocomplete-container' :
+                    'autocomplete-container hidden'">
+                <amp-selector
+                    id="autocomplete-selector"
+                    keyboard-select-mode="focus"
+                    layout="container"
+                    on="
+                        select:
+                            AMP.setState({acForm: {
+                                query: event.targetOption,
+                                isLoading: true,
+                                showDropdown: false
+                            }}),
+                            form.submit">
+                    <amp-list
+                        id="autocomplete-list"
+                        class="autocomplete-box"
+                        layout="fixed-height"
+                        height="150"
+                        src="autocomplete-api.php"
+                        [src]="acData.predictions"
+                        items=".">
+                        <template type="amp-mustache">
+                            <div
+                                class="select-option"
+                                role="option"
+                                tabindex="0"
+                                on="tap:AMP.setState({acForm: {
+                                    showDropdown: false
+                                }});"
+                                option="{{description}}">{{description}}</div>
+                        </template>
+                    </amp-list>
+                </amp-selector>
+                <div class="google-logo"></div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
