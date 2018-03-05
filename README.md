@@ -18,7 +18,12 @@ Requirements
    services can't be used directly because it doesn't allow your site's origin (not an expert
    in CORS but that is how I understand it). 
    
-   For example, see [`autocomplete-api.php`](autocomplete-api.php).
+   For example, see [`autocomplete-api.php`](autocomplete-api.php). To run this script:
+
+   ```sh
+   cd amp-google-places-autocomplete
+   php -S localhost:3000
+   ```
 
 3. Google [requires](https://developers.google.com/places/web-service/policies#logo_requirements)
    inclusion of a "Powered by Google" logo somewhere in the autocomplete dropdown. In this example
