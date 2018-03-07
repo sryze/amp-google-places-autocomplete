@@ -3,6 +3,8 @@
 This is just an example of how to implement an autocomplete list for an address input (in this
 case cities) using AMP and Google Places Autocomplete APIs. It is based on the [Autosuggest](https://ampbyexample.com/advanced/autosuggest/) example.
 
+[Demo](https://amp-google-places-autocomplete.herokuapp.com/autocomplete.html)
+
 ![Screenshot](screenshot.png)
 
 Requirements
