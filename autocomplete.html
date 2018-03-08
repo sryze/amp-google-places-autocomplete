@@ -285,7 +285,7 @@
             </div>
             <div
                 class="autocomplete-container hidden"
-                [class]="(acForm.showDropdown && acForm.query && acData.predictions.length > 0) ?
+                [class]="(acForm.showDropdown && acForm.query && acData.predictions && acData.predictions.length > 0) ?
                     'autocomplete-container' :
                     'autocomplete-container hidden'">
                 <amp-selector
