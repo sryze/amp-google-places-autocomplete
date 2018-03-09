@@ -251,15 +251,12 @@
                         input-debounced:
                             AMP.setState({acForm: {
                                 query: event.value,
-                                showDropdown: event.value && event.value.length > 0,
-                            }}),
-                            autocomplete-list.show;
+                                showDropdown: true
+                            }});
                         tap:
                             AMP.setState({acForm: {
-                                query: acForm.query == null ? '' : acForm.query,
                                 showDropdown: true
-                            }}),
-                            autocomplete-list.show"
+                            }})"
                     value=""
                     [value]="acForm.query || ''"
                     required
